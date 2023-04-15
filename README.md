@@ -13,9 +13,6 @@ With its image processing techniques and cloud-based infrastructure, this chatbo
 
 <img src="https://user-images.githubusercontent.com/48171500/232252124-6b00b82c-5811-42c7-9920-56fe8bdbbc93.png" width="200"/>
 
-# Architecture
-![d8](https://user-images.githubusercontent.com/48171500/232245164-5402de9c-006e-43d0-97b3-696ed893d81e.PNG)
-
 # User Interaction
 ## Start command
 Send the command 茉茉", which is the name of the chatbot, and it will tell you what commands are available now.
@@ -64,7 +61,63 @@ Send the command "安靜" which means quiet and it will stay quiet until you sen
 
 <img src="https://user-images.githubusercontent.com/48171500/232253152-a4a92fc8-f1fe-4b5c-bca2-52b68276d316.jpg" width="350"/>
 
+# Architecture
+![d8](https://user-images.githubusercontent.com/48171500/232245164-5402de9c-006e-43d0-97b3-696ed893d81e.PNG)
 
 # Development
+This chatbot is built on a serverless architecture using AWS services. Here are the different components and features that make up the chatbot:
+
+## API Gateway:
+* API Gateway enables easy management and monitoring of the chatbot's traffic and ensures that Lambda functions are only triggered when necessary.
+
+The chatbot uses API Gateway to receive user messages from LINE Messaging API and trigger a Lambda function that processes the messages.
+
+## Lambda functions:
+* Lambda functions provide scalability and cost-effectiveness, as they only execute when needed and can easily scale up or down based on traffic.
+
+The chatbot uses multiple Lambda functions to perform different tasks and handle user requests.
+
+One Lambda function handles incoming messages and calls the corresponding function based on the user's current status.
+
+Another Lambda function performs image classification when a user sends an image in classify mode.
+
+A third Lambda function cartoonizes images when a user sends an image in cartoonize mode.
+
+## DynamoDB:
+* DynamoDB enables fast and reliable storage and retrieval of user data, even as the chatbot's user base grows.
+
+The chatbot uses DynamoDB as its database to store user information and status.
+
+## Photo search function:
+
+The chatbot uses the Pixabay API to retrieve photos based on user-sent text.
+
+When a user sends a message in search mode, the chatbot uses the Pixabay API to search for relevant images that match the user's request.
+
+The chatbot then sends the user a photo that corresponds to their message.
+
+## Classify function:
+
+When a user sends an image in classify mode, the chatbot stores it in an S3 bucket and triggers a Lambda function for object classification.
+
+The function uses the yolov8 model deployed in the container to classify the image and puts the processed image and text description into another S3 bucket.
+
+The main Lambda function retrieves the result from the second S3 bucket and returns it to the user.
+
+## Cartoonize function:
+
+When a user sends an image in cartoonize mode, the chatbot stores it in an S3 bucket and triggers a Lambda function for image processing.
+
+The function uses an ML model deployed in the container to cartoonize the image and puts the processed image into another S3 bucket.
+
+The main Lambda function retrieves the result from the second S3 bucket and returns it to the user.
+
+These are the links about [this ML model](https://github.com/duck00036/Cartoonize-people-in-image) and [model deployment](https://github.com/duck00036/Deploy-image-processing-ML-model-on-aws-lambda-via-container)
 
 # Limitations
+This line bot still has some limitations, as follows:
+
+* The language used in the search mode is English when possible
+* Photos returned in search mode may not always be what you expect
+* Classification and cartoonization can take seconds of image processing
+* Classify and cartoonize mode results may not always be what you expect
