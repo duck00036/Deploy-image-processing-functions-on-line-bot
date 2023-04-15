@@ -3,9 +3,9 @@ This chatbot is developed using the LINE Messaging API and deployed on AWS Lambd
 
 1. **Searching for photos based on user-defined text, enabling users to quickly find the photos they need.**
 
-2. **Classifying objects in user-uploaded photos and returning a processed picture along with a text description.**
+2. **Classifying objects in user-sent photos and returning a processed picture along with a text description.**
 
-3. **Cartoonizing people in user-uploaded photos and replying with a processed photo featuring cartoonized people.**
+3. **Cartoonizing people in user-sent photos and replying with a processed photo featuring cartoonized people.**
 
 With its image processing techniques and cloud-based infrastructure, this chatbot provides users with a fun and engaging way to enhance their photos quickly and easily.
 
